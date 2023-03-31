@@ -38,9 +38,9 @@ public class Client {
             String className = replace.substring(replace.indexOf(packageName)).replace(".class", "");
             Class<?> beanClass = Class.forName(className);
             Component component = beanClass.getDeclaredAnnotation(Component.class);
-            if (component!=null) {
-                String substring = className.substring(className.lastIndexOf(".") + 1);
-                singletonObjects.put(String.valueOf(substring.charAt(0)).toLowerCase() + substring.substring(1),beanClass.newInstance());
+            if (component != null) {
+                String key = "".equals(component.value()) ? file.getName().replace(".class", "") : component.value();
+                singletonObjects.put(key, beanClass.newInstance());
             }
         }
     }
