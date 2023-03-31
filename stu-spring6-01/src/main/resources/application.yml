@@ -1,0 +1,6 @@
+
+spring:
+  main:
+    allow-circular-references: on
+server:
+  port: 8088
