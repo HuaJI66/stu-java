@@ -4,7 +4,6 @@ import com.pika.annotation.Component;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -20,9 +19,8 @@ public class Client {
     @Test
     public void test1() throws Exception {
         packageName = getClass().getPackageName();
-        String replace = packageName.replace(".", "/");
-        URL url = ClassLoader.getSystemResource(replace);
-        File file = new File(url.getPath());
+        String packagePath = packageName.replace(".", "/");
+        File file = new File(ClassLoader.getSystemResource(packagePath).getPath());
 
         scan(file);
         System.out.println("singletonObjects = " + singletonObjects);
