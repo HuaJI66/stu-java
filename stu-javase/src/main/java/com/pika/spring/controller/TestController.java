@@ -1,7 +1,6 @@
 package com.pika.spring.controller;
 
 import com.pika.spring.service.AService;
-import com.pika.spring.service.BService;
 import com.pika.spring.service.LoginService;
 import com.pika.spring.service.impl.BServiceImpl;
 import jakarta.annotation.Resource;

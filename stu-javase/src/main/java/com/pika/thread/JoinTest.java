@@ -1,11 +1,6 @@
 package com.pika.thread;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.Date;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 /**
  * Desc:
@@ -14,6 +9,7 @@ import java.util.concurrent.FutureTask;
  * @since 2023/2/13 19:52
  */
 public class JoinTest {
+    @SuppressWarnings("all")
     public static void main(String[] args) throws InterruptedException {
         Thread thread = new Thread(() -> {
             try {
@@ -31,5 +27,6 @@ public class JoinTest {
         Date date1 = new Date();
         System.out.println("3 = "+date1 + Thread.currentThread().getName());
         System.out.println("Thread.currentThread().getPriority() = " + Thread.currentThread().getPriority());
+        ThreadLocal<Object> local = new ThreadLocal<>();
     }
 }

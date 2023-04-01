@@ -1,10 +1,8 @@
 package com.pika.spring.service.impl;
 
 import com.pika.spring.service.AService;
-import com.pika.spring.service.BService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 

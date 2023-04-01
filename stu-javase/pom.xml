@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>stu-spring6-01</artifactId>
+    <artifactId>stu-javase</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>com.pika</groupId>
