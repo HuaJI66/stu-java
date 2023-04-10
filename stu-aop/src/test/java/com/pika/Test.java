@@ -74,4 +74,16 @@ public class Test {
         System.out.println("AopUtils.isJdkDynamicProxy(userController) = " + AopUtils.isJdkDynamicProxy(userController));
         System.out.println("AopUtils.isAopProxy(userController) = " + AopUtils.isAopProxy(userController));
     }
+
+    @org.junit.Test
+    public void testOrder() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
+        UserService userService = context.getBean("userService", UserService.class);
+        userService.login();
+    }
+
+    @org.junit.Test
+    public void test6() {
+
+    }
 }

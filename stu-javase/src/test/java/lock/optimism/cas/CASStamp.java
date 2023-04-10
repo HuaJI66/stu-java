@@ -1,4 +1,6 @@
-package com.pika.lock.cas;
+package lock.optimism.cas;
+
+import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicStampedReference;
 
@@ -10,8 +12,8 @@ import java.util.concurrent.atomic.AtomicStampedReference;
  */
 @SuppressWarnings("AlibabaAvoidManuallyCreateThread")
 public class CASStamp {
-
-    public static void main(String[] args) {
+    @Test
+    public void ABATest() throws InterruptedException {
         Book java = new Book(1, "java");
         Book mysql = new Book(2, "mysql");
         AtomicStampedReference<Book> stampedReference = new AtomicStampedReference<>(java, 1);
@@ -24,6 +26,7 @@ public class CASStamp {
                 boolean result = stampedReference.compareAndSet(java, mysql, stamp, stampedReference.getStamp() + 1);
                 System.out.println(Thread.currentThread().getName() + "\tstamp = " + stamp + "\tresult = " + result);
 
+                //改回来
                 stamp = stampedReference.getStamp();
                 result = stampedReference.compareAndSet(mysql, java, stamp, stampedReference.getStamp() + 1);
                 System.out.println(Thread.currentThread().getName() + "\tstamp = " + stamp + "\tresult = " + result);
@@ -42,6 +45,6 @@ public class CASStamp {
                 e.printStackTrace();
             }
         }, "t2").start();
-
+        Thread.sleep(Integer.MAX_VALUE);
     }
 }

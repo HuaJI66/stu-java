@@ -19,6 +19,9 @@
         <module>stu-annotation</module>
         <module>stu-spring6-annatation</module>
         <module>stu-aop</module>
+        <module>stu-spring-life-cycle</module>
+        <module>stu-aop-transational</module>
+        <module>stu-spring-tx</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -42,6 +45,11 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>transaction-api</artifactId>
+            <version>1.1-rev-1</version>
         </dependency>
     </dependencies>
     <build>

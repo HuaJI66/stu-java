@@ -1,4 +1,4 @@
-package com.pika.lock.cas;
+package lock.optimism.cas;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +22,16 @@ class Book {
 public class CASTest {
     public static void main(String[] args) {
         AtomicInteger integer = new AtomicInteger(6);
+        int updated, expected;
+        expected = integer.get();
+        updated = expected + 3;
         System.out.println(integer.compareAndSet(6, 9) + "," + integer.get());
+        //更新操作，原数据 +3操作
+        while (!integer.compareAndSet(expected, updated)) {
+            expected = integer.get();
+            updated = expected + 3;
+        }
+        System.out.println("integer.get() = " + integer.get());
 
         AtomicReference<Book> atomicReference = new AtomicReference<>();
         Book book1 = new Book(10, "Book1");
@@ -31,6 +40,7 @@ public class CASTest {
         atomicReference.set(book1);
         System.out.println(atomicReference.compareAndSet(book1, book2) + "," + atomicReference.get());
         System.out.println(atomicReference.compareAndSet(book1, book2) + "," + atomicReference.get());
+
 
     }
 }

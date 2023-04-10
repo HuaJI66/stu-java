@@ -1,5 +1,6 @@
 package com.pika.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class TestAspect {
      * 前置通知：目标方法执行前
      */
     @Before("pointcut()")
-    public void beforeLogin() {
+    public void beforeLogin(JoinPoint joinPoint) {
         System.out.println("before advice..");
     }
 
@@ -35,9 +36,9 @@ public class TestAspect {
     @Around("execution(* com.pika.service.UserService.*(..))")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("pjp.getTarget() = " + pjp.getTarget());
-        System.out.println("around advice");
+        System.out.println("before around advice");
         Object proceed = pjp.proceed();
-        System.out.println("around advice");
+        System.out.println("after around advice");
         return proceed;
     }
 
