@@ -1,4 +1,4 @@
-package com.pika.service.impl;
+package com.pika.dao;
 
 /**
  * @author pikachu
@@ -7,4 +7,10 @@ package com.pika.service.impl;
 public interface BalanceDao {
 
     void transfer(Integer from, Integer to, Integer money);
+
+    void test(Integer from, Integer to, Integer money);
+
+    void testTimeout();
+
+    void testNoTimeOut();
 }
