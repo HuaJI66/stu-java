@@ -1,12 +1,16 @@
 package com.pika.dao.impl;
 
 import com.pika.dao.BalanceDao;
+import com.pika.entity.Balance;
 import jakarta.annotation.Resource;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 一共有七种传播行为：
@@ -92,5 +96,20 @@ public class BalanceDaoImpl implements BalanceDao {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public void testNoReadOnly() {
+        BalanceDao balanceDao = (BalanceDao) AopContext.currentProxy();
+        balanceDao.transfer(1, 2, 100);
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public void testReadOnly() {
+        String sql = "select * from t_balance";
+        List<Balance> balances = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Balance.class));
+        balances.forEach(System.out::println);
     }
 }

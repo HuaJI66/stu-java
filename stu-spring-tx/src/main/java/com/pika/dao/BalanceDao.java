@@ -13,4 +13,8 @@ public interface BalanceDao {
     void testTimeout();
 
     void testNoTimeOut();
+
+    void testNoReadOnly();
+
+    void testReadOnly();
 }
