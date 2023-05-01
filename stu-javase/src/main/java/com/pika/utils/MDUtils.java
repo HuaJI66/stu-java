@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -21,6 +22,8 @@ import java.util.Scanner;
  * @since 2023/2/18 22:45
  */
 public class MDUtils {
+    private static final Random random = new Random();
+
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         String mdPath, targetPath;
@@ -86,11 +89,11 @@ public class MDUtils {
             subtitle = HttpUtil.get("https://v1.jinrishici.com/rensheng.txt");
             try {
                 Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+
             }
         }
-        String categories = "cs-notes";
+        String categories = "算法题";
         String tags = "cs-notes";
         String header = "---\n" +
                 "layout: post\n" +
@@ -103,7 +106,7 @@ public class MDUtils {
                 "  loop: true              # Video loop\n" +
                 "  volume: 0               # Video volume (100% is 1.0)\n" +
                 "  start_at: 0             # Video start time\n" +
-                "  image: /assets/images/banners/spy2.jpg    # Image banner source\n" +
+                "  image: /assets/images/banners/bg" + random.nextInt(20) + ".jpg    # Image banner source\n" +
                 "---";
         newFile.write(header.getBytes(StandardCharsets.UTF_8));
         //添加转义

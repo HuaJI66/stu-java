@@ -6,8 +6,8 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
- * 切面类
- * 切点表达式：execution([访问控制权限修饰符] 返回值类型 [全限定类名]方法名(形式参数列表) [异常])
+ * 切面类（Aspect）:切点 (Pointcut) +增强代码 (Advice)
+ * <p>切点表达式：execution([访问控制权限修饰符] 返回值类型 [全限定类名]方法名(形式参数列表) [异常])</p>
  *
  * @author pikachu
  * @since 2023/4/1 21:56

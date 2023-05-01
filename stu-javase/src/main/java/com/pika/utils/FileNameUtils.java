@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author pikachu
  * @since 2023/2/17 22:43
  */
-public class FileUtils {
+public class FileNameUtils {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("目标路径target: ");

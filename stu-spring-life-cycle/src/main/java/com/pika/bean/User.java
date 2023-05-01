@@ -1,17 +1,20 @@
 package com.pika.bean;
 
+import jakarta.annotation.PostConstruct;
 import lombok.ToString;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author pikachu
  * @since 2023/4/4 20:36
  */
 @ToString
+@Component
 public class User implements ApplicationContextAware, InitializingBean, DisposableBean {
     private String name;
 
@@ -49,5 +52,10 @@ public class User implements ApplicationContextAware, InitializingBean, Disposab
     @Override
     public void destroy() throws Exception {
         System.out.println("执行实现 DisposableBean接口的 destroy方法");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("执行 postConstruct....");
     }
 }

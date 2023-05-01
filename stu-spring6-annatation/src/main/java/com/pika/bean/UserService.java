@@ -1,11 +1,8 @@
 package com.pika.bean;
 
-import org.springframework.stereotype.Service;
-
 /**
  * @author pikachu
- * @since 2023/3/31 22:33
+ * @since 2023/4/20 21:30
  */
-@Service
-public class UserService {
+public interface UserService {
 }

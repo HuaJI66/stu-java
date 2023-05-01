@@ -1,6 +1,7 @@
 package com.pika.service;
 
 import com.pika.annotation.ExecLog;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     public String login() {
+        Object currentProxy = AopContext.currentProxy();
         System.out.println("login");
-//        throw new RuntimeException("login throw exception");
         return "success";
     }
 

@@ -22,6 +22,7 @@
         <module>stu-spring-life-cycle</module>
         <module>stu-aop-transational</module>
         <module>stu-spring-tx</module>
+        <module>stu-spring-boot</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

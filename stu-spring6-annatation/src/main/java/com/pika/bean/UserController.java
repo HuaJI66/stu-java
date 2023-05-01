@@ -1,5 +1,6 @@
 package com.pika.bean;
 
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -8,4 +9,6 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class UserController {
+    @Resource
+    private UserService userServiceImplA;
 }
