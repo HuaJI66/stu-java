@@ -5,10 +5,11 @@ package com.pika.dao;
  * @since 2023/4/10 21:55
  */
 public interface BalanceDao {
+    void deduct(Integer userId, Integer money);
+
+    void add(Integer userId, Integer money);
 
     void transfer(Integer from, Integer to, Integer money);
-
-    void test(Integer from, Integer to, Integer money);
 
     void testTimeout();
 

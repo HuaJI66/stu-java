@@ -33,42 +33,51 @@ import java.util.List;
  * NEVER：以非事务方式运行，如果有事务存在，抛出异常
  * 【不支持事务，存在就抛异常】
  * <p>
- * NESTED：如果当前正有一个事务在进行中，则该方法应当运行在一个嵌套式事务中。
- * 被嵌套的事务可以独立于外层事务进行提交或回滚。如果外层事务不存在，行为就像REQUIRED一样。
- * 【有事务的话，就在这个事务里再嵌套一个完全独立的事务，嵌套的事务可以独立的提交和回滚。没有事务就和REQUIRED一样。】
+ * NESTED：【有事务的话，就在这个事务里再嵌套一个完全独立的事务，嵌套的事务可以独立的提交和回滚。没有事务就和REQUIRED一样。】
+ * <li>
+ * 如果当前正有一个事务在进行中，则该方法应当运行在一个嵌套式事务中。
+ * 被嵌套的事务可以独立于外层事务进行提交或回滚。
+ * </li>
+ * <li>
+ * 如果外层事务不存在，行为就像REQUIRED一样。
+ * </li>
  *
  * @author pikachu
  * @since 2023/4/10 21:58
  */
 @Repository
+@SuppressWarnings("all")
 public class BalanceDaoImpl implements BalanceDao {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void transfer(Integer from, Integer to, Integer money) {
+    @Transactional(propagation = Propagation.NEVER, rollbackFor = Exception.class)
+    public void deduct(Integer userId, Integer money) {
         //减
         String sql = "update t_balance set balance=balance-? where id=?";
-        jdbcTemplate.update(sql, money, from);
+        jdbcTemplate.update(sql, money, userId);
+//        throw new RuntimeException("deduct error");
+    }
 
-//        int x = 10 / 0;
-
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
+    public void add(Integer userId, Integer money) {
         //加
-        sql = "update t_balance set balance=balance+? where id=?";
-        jdbcTemplate.update(sql, money, to);
-        System.out.println("用户:" + from + " 向用户:" + to + " 转账:" + money);
+        String sql = "update t_balance set balance=balance+? where id=?";
+        jdbcTemplate.update(sql, money, userId);
+        throw new RuntimeException("add error");
     }
 
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void test(Integer from, Integer to, Integer money) {
+    public void transfer(Integer from, Integer to, Integer money) {
         BalanceDao balanceDao = (BalanceDao) AopContext.currentProxy();
-        try {
-            balanceDao.transfer(from, to, money);
-        } catch (Exception ignored) {
-        }
+        balanceDao.deduct(from, money);
+        balanceDao.add(to, money);
+        throw new RuntimeException("error");
+//        System.out.println("用户:" + from + " 向用户:" + to + " 转账:" + money);
     }
 
     /**

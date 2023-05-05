@@ -20,12 +20,11 @@ public class SpringJunit4Test {
     @org.junit.Test
     public void test1() {
 
-        balanceDao.test(1, 2, 100);
+        balanceDao.transfer(1, 2, 100);
     }
 
     @org.junit.Test
     public void test2() {
-
         balanceDao.transfer(1, 2, 100);
     }
 

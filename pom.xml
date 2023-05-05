@@ -23,6 +23,8 @@
         <module>stu-aop-transational</module>
         <module>stu-spring-tx</module>
         <module>stu-spring-boot</module>
+        <module>stu-spring-data-jpa</module>
+        <module>stu-spring-validation</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -72,6 +74,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+        </dependency>
+        <!--mysql驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.32</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
     <build>

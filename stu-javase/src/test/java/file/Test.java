@@ -1,5 +1,6 @@
 package file;
 
+import cn.hutool.http.HttpUtil;
 import org.springframework.util.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
@@ -79,6 +80,18 @@ public class Test {
         }
     }
 
+    public String getPoem() {
+        String poem = "Error";
+        while (poem.contains("Error") || poem.contains("403")) {
+            poem = HttpUtil.get("https://v1.jinrishici.com/rensheng.txt");
+            try {
+                Thread.sleep(300);
+            } catch (Exception ignored) {
+            }
+        }
+        return poem;
+    }
+
     public String updatePostYaml(InputStream inputStream, String author, String categories, String tags) throws Exception {
         String text;
         try (BufferedInputStream in = new BufferedInputStream(inputStream, inputStream.available())) {
@@ -89,6 +102,7 @@ public class Test {
             String originalYamlStr = Arrays.stream(text.split(splitStr)).filter(s -> s.startsWith("layout")).toList().get(0);
             Yaml yaml = new Yaml();
             Map<String, Object> yamlMap = yaml.load(originalYamlStr);
+//            yamlMap.put("subtitle", getPoem());
             yamlMap.put("author", StringUtils.hasText(author) ? author : "HuaJi66");
             yamlMap.remove("banner");
             yamlMap.put("categories", categories.replace("，", ",").split(","));
