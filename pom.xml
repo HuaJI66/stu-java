@@ -17,13 +17,12 @@
         <module>stu-spring6-02</module>
         <module>myspring-ioc</module>
         <module>stu-annotation</module>
-        <module>stu-spring6-annatation</module>
+        <module>stu-spring6-annotation</module>
         <module>stu-aop</module>
         <module>stu-spring-life-cycle</module>
-        <module>stu-aop-transational</module>
-        <module>stu-spring-tx</module>
+        <module>stu-aop-transactional</module>
         <module>stu-spring-boot</module>
-        <module>stu-spring-data-jpa</module>
+        <module>stu-spring-data-jpa-tx</module>
         <module>stu-spring-validation</module>
     </modules>
     <properties>
@@ -54,22 +53,6 @@
             <artifactId>junit-jupiter</artifactId>
             <version>5.9.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>transaction-api</artifactId>
-            <version>1.1-rev-1</version>
-        </dependency>
-        <!--log4j2的依赖-->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j2-impl</artifactId>
-            <version>2.19.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
