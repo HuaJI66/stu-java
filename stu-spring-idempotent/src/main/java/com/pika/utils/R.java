@@ -129,6 +129,11 @@ public class R extends HashMap<String, Object> {
         return JSON.parseObject(JSON.toJSONString(get(DATA_NAME), JSONWriter.Feature.IgnoreErrorGetter), clazz);
     }
 
+    public R setMsg(String msg) {
+        this.put(MESSAGE_NAME, msg);
+        return this;
+    }
+
     public String getMsg() {
         return (String) this.get(MESSAGE_NAME);
     }

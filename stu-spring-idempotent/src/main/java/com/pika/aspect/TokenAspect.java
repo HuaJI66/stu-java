@@ -9,6 +9,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -37,6 +38,8 @@ public class TokenAspect {
             String token = tokenUtils.generateToken(request, joinPoint);
             if (StringUtils.hasText(token)) {
                 ((R) proceed).setToken(token);
+            } else {
+                ((R) proceed).setMsg("generate token error").setCode(HttpStatus.BAD_REQUEST.value());
             }
         }
         return proceed;

@@ -49,6 +49,9 @@ public class TokenUtils {
      */
     @Setter
     private Supplier<String> userId = () -> "SYSTEM";
+    private static final String URI_REGEX = "^(\\/[\\w-]+)+\\/?$";
+    @Setter
+    private Supplier<String> tokenValue = IdUtil::fastSimpleUUID;
 
     @SuppressWarnings("all")
     private String getCheckToken(ProceedingJoinPoint joinPoint, HttpServletRequest request) throws IOException {
@@ -104,19 +107,20 @@ public class TokenUtils {
     }
 
     public String buildTokenKey(String requestUri) {
-        return tokenKeyFormat.get().formatted(moduleName.get(), requestUri, userId.get());
+        return (StringUtils.hasText(requestUri) && requestUri.matches(URI_REGEX)) ? tokenKeyFormat.get().formatted(moduleName.get(), requestUri, userId.get()) : null;
     }
 
     public String generateToken(HttpServletRequest request, ProceedingJoinPoint joinPoint) {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Token tokenAnno = method.getAnnotation(Token.class);
         String requestUri = request.getParameter(tokenAnno.requestURI());
-        if (StringUtils.hasText(requestUri)) {
-            String tokenKey = buildTokenKey(requestUri);
-            String token = IdUtil.fastSimpleUUID();
+        String tokenKey = buildTokenKey(requestUri);
+        if (StringUtils.hasText(requestUri) && StringUtils.hasText(tokenKey)) {
+            String token = tokenValue.get();
             stringRedisTemplate.opsForValue().set(tokenKey, token, tokenAnno.expire(), tokenAnno.timeUnit());
             return token;
         }
+        log.warn("generateToken error,current_requestUri:{},dest_requestUri:{}", request.getRequestURI(), requestUri);
         return null;
     }
 }

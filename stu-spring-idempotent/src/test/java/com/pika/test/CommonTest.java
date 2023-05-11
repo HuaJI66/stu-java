@@ -14,4 +14,11 @@ public class CommonTest {
         String hex16 = md5.digestHex16("fhiuehgvfiu");
         System.out.println("hex16 = " + hex16);
     }
+
+    @Test
+    public void test2() {
+        String regex = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]";
+        String uri = "hsf.fer";
+        System.out.println("uri.matches(regex) = " + uri.matches(regex));
+    }
 }

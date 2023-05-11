@@ -5,8 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 为通用返回结果 {@link com.pika.utils.R} 添加token字段，被标注的接口应为标识性接口，不处理其它业务逻辑
+ * <p>默认需要从请求参数中获取 request_uri (需要幂等性的接口地址) 作为缓存 token 的 key</p>
  *
  * @author pikachu
+ * @see Idempotent
  * @since 2023/5/10 21:47
  */
 @Documented
