@@ -111,9 +111,12 @@ public class TokenUtils {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Token tokenAnno = method.getAnnotation(Token.class);
         String requestUri = request.getParameter(tokenAnno.requestURI());
-        String tokenKey = buildTokenKey(requestUri);
-        String token = IdUtil.fastSimpleUUID();
-        stringRedisTemplate.opsForValue().set(tokenKey, token, tokenAnno.expire(), tokenAnno.timeUnit());
-        return token;
+        if (StringUtils.hasText(requestUri)) {
+            String tokenKey = buildTokenKey(requestUri);
+            String token = IdUtil.fastSimpleUUID();
+            stringRedisTemplate.opsForValue().set(tokenKey, token, tokenAnno.expire(), tokenAnno.timeUnit());
+            return token;
+        }
+        return null;
     }
 }

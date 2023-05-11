@@ -141,4 +141,9 @@ public class R extends HashMap<String, Object> {
     public Integer getCode() {
         return Integer.parseInt(get(CODE_NAME) + "");
     }
+
+    public R setCode(Integer code) {
+        super.put(CODE_NAME, code);
+        return this;
+    }
 }

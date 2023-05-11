@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -33,7 +34,10 @@ public class TokenAspect {
         Object proceed = joinPoint.proceed();
         if (proceed instanceof R) {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-            ((R) proceed).setToken(tokenUtils.generateToken(request, joinPoint));
+            String token = tokenUtils.generateToken(request, joinPoint);
+            if (StringUtils.hasText(token)) {
+                ((R) proceed).setToken(token);
+            }
         }
         return proceed;
     }

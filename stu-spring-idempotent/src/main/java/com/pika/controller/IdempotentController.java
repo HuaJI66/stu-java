@@ -21,7 +21,7 @@ public class IdempotentController {
 
     @GetMapping("token")
     @Token
-    public R test2() {
-        return R.ok();
+    public R test2(@RequestParam(Token.REQUEST_URI) String reqUri) {
+        return R.ok().setData(reqUri);
     }
 }

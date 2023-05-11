@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,9 +24,10 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class AppTest {
     @Resource
-    private WebApplicationContext webApplicationContext;
+    private WebApplicationContext context;
 
     @Test
     public void test1() throws Exception {
@@ -34,8 +36,8 @@ public class AppTest {
                 .post("/idem/test1")
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(JSONUtil.toJsonStr(new Order(1, "abc", "32")));
+                .content(JSONUtil.toJsonStr(new Order(1, "abc", "3fef")));
         String response = mockMvc.perform(requestBuilder).andReturn().getResponse().getContentAsString();
-        log.info("response:\n{}", JSONUtil.toJsonStr(response));
+        log.info("response:\n{}\n", JSONUtil.toJsonStr(response));
     }
 }
