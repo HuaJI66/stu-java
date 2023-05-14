@@ -49,7 +49,7 @@ public class TokenUtils {
      */
     @Setter
     private Supplier<String> userId = () -> "SYSTEM";
-    private static final String URI_REGEX = "^(\\/[\\w-]+)+\\/?$";
+    private static final String URI_REGEX = "^(/[\\w-]+)+/?$";
     @Setter
     private Supplier<String> tokenValue = IdUtil::fastSimpleUUID;
 
